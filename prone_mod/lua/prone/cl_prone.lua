@@ -49,11 +49,17 @@ end)
 local function boolToNumString(bool)
 	return bool and "1" or "0"
 end
-local bindkey_enabled = CreateClientConVar("prone_bindkey_enabled", boolToNumString(prone.Config.DefaultBindKey_Enabled), true, false, "Disable this to disable the prone bind key from working.")
+
+local bindkey_enabled = CreateClientConVar("prone_bindkey_enabled_meta", boolToNumString(prone.Config.DefaultBindKey_Enabled), true, false, "Disable this to disable the prone bind key from working.")
 local bindkey_key = CreateClientConVar("prone_bindkey_key", tostring(prone.Config.DefaultBindKey), true, false, "Don't directly change this convar. Use the command prone_config.")
 local bindkey_doubletap = CreateClientConVar("prone_bindkey_doubletap", boolToNumString(prone.Config.DefaultBindKey_DoubleTap), true, false, "Enable to make them double tap the bind key to go prone.")
 local jumptogetup = CreateClientConVar("prone_jumptogetup", "1", boolToNumString(prone.Config.DefaultJumpToGetUp), false, "If enabled you can press the jump key to get up.")
 local jumptogetup_doubletap = CreateClientConVar("prone_jumptogetup_doubletap", boolToNumString(prone.Config.DefaultJumpToGetUp_DoubleTap), true, false, "If enabled you must double press jump to get up.")
+
+list.Set("ChatCommands", "prone", function()
+	RunConsoleCommand("prone")
+	return true
+end)
 
 local key_waspressed = false
 local last_prone_request = 0
@@ -215,7 +221,7 @@ concommand.Add("prone_config", function()
 	bindkey_enabled_checkbox:SetPos(10, 30)
 	bindkey_enabled_checkbox:SetValue(bindkey_enabled:GetInt())
 	function bindkey_enabled_checkbox:OnChange(bool)
-		RunConsoleCommand("prone_bindkey_enabled", bool and "1" or "0")
+		RunConsoleCommand("prone_bindkey_enabled_meta", bool and "1" or "0")
 	end
 
 	local bindkey_double_checkbox = vgui.Create("DCheckBoxLabel", frame)
@@ -262,7 +268,7 @@ concommand.Add("prone_config", function()
 	resetbutton:SetPos(0, 190)
 	resetbutton:SetSize(200, 20)
 	function resetbutton:DoClick()
-		RunConsoleCommand("prone_bindkey_enabled", "1")
+		RunConsoleCommand("prone_bindkey_enabled_meta", "0")
 		RunConsoleCommand("prone_bindkey_key", tostring(prone.Config.DefaultBindKey))
 		RunConsoleCommand("prone_bindkey_doubletap", "1")
 		RunConsoleCommand("prone_jumptogetup", "1")

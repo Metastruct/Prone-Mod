@@ -1,3 +1,4 @@
+# Metastruct version of "The Prone Mod" for ease of managment
 
 # The Prone Mod
 

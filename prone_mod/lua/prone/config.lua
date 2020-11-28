@@ -12,7 +12,7 @@ prone.Config.FallDamageMultiplier = 1.75
 --			by the user with the "prone_config" command.
 
 -- By default is the bind key enabled.
-prone.Config.DefaultBindKey_Enabled = true
+prone.Config.DefaultBindKey_Enabled = false
 
 -- What is the default bind key set by the server.
 -- See http://wiki.garrysmod.com/page/Enums/KEY

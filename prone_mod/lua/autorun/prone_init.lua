@@ -153,7 +153,7 @@ PRONE_CUSTOM_ANIM_EVENT_NUM = 69420
 
 if SERVER then
 	-- https://steamcommunity.com/sharedfiles/filedetails/?id=1100368137
-	resource.AddWorkshop("1100368137")
+	--resource.AddWorkshop("1100368137")
 end
 
 hook.Add("Initialize", "prone.Initialize", function()
@@ -162,7 +162,7 @@ hook.Add("Initialize", "prone.Initialize", function()
 		AddCSLuaFile("prone/class_prone_statedata.lua")
 		AddCSLuaFile("prone/config.lua")
 		AddCSLuaFile("prone/sh_prone.lua")
-		AddCSLuaFile("prone/sh_thirdparty_compat.lua")
+		--AddCSLuaFile("prone/sh_thirdparty_compat.lua")
 		AddCSLuaFile("prone/cl_prone.lua")
 	end
 
@@ -170,7 +170,7 @@ hook.Add("Initialize", "prone.Initialize", function()
 	include("prone/class_prone_statedata.lua")
 	include("prone/config.lua")
 	include("prone/sh_prone.lua")
-	include("prone/sh_thirdparty_compat.lua")
+	--include("prone/sh_thirdparty_compat.lua")
 	if SERVER then
 		include("prone/sv_prone.lua")
 	else
@@ -215,6 +215,7 @@ function prone.ReadPlayer()
 end
 
 -- Sandbox C-Menu
+--[[
 if CLIENT then
 	hook.Add("PopulateToolMenu", "prone.SandboxOptionsMenu", function()
 		spawnmenu.AddToolMenuOption("Utilities", "User", "prone_options", "Prone Options", "", "", function(panel)
@@ -251,3 +252,4 @@ if CLIENT then
 		end)
 	end)
 end
+]]
