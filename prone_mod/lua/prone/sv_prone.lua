@@ -11,16 +11,13 @@ hook.Add("PlayerSpawn", "prone.ExitOnDeath", function(ply)
 end)
 
 if prone.Config.FallDamageMultiplier ~= 1 then
+	local velDeath = 200
+
 	hook.Add("GetFallDamage", "prone.FallDamage", function(ply, speed)
-		if ply:IsProne() then
-			local oldFallDamage = 10
-
-			-- Copied from the base gamemode.
-			if GetConVar("mp_falldamage"):GetInt() > 0 then
-				oldFallDamage = (speed - 526.5) * (100 / 396)
-			end
-
-			return oldFallDamage * prone.Config.FallDamageMultiplier
+		if ply:IsProne() and ply:GetInfoNum("cl_dmg_nofall", 0) == 0 then
+			if speed < velDeath then return 0 end
+			--copied from sandbox_modded but tweaked to fit in
+			return math.pow(0.05 * (speed - velDeath), 1.75) * prone.Config.FallDamageMultiplier
 		end
 	end)
 end
