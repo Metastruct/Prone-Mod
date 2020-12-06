@@ -104,7 +104,7 @@ function prone.CanEnter(ply)
 		return hookresult
 
 	-- Then check the player's state.
-	elseif not ply:IsPlayer() or not ply:Alive() or ply:GetMoveType() == MOVETYPE_NOCLIP or not ply:OnGround() or ply:WaterLevel() > 1 then
+	elseif not ply:IsPlayer() or not ply:Alive() or not ply:OnGround() or ply:InVehicle() or ply:GetMoveType() == MOVETYPE_NOCLIP or ply:WaterLevel() > 1 then
 		return false
 	end
 
@@ -437,11 +437,20 @@ hook.Add("PlayerNoClip", "prone.ExitOnNoclip", function(ply)
 		prone.Exit(ply)
 	end
 end)
-hook.Add("VehicleMove", "prone.ExitOnVehicleEnter", function(ply)
+hook.Add("PlayerEnteredVehicle", "prone.ExitOnVehicleEnter", function(ply)
 	if ply:IsProne() then
 		prone.Exit(ply)
 	end
 end)
+hook.Add("OnEntityWaterLevelChanged", "prone.ExitOnWaterLevelChanged", function(ply, old, new)
+	if ply:IsPlayer() and ply:IsProne() then
+		if new > 1 then
+			prone.Exit(ply)
+		end
+	end
+end)
+
+--[[
 timer.Create("prone.Manage", 0.5, 0, function()
 	for i, v in ipairs(player.GetAll()) do
 		if v:IsProne() and (
@@ -453,6 +462,7 @@ timer.Create("prone.Manage", 0.5, 0, function()
 		end
 	end
 end)
+]]
 
 ----------------
 -- API Functions
