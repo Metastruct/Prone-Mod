@@ -7,6 +7,8 @@ prone.PlayerStateData = {
 	PlayerSteamID = "",
 	OriginalViewOffset = Vector(0, 0, 64),
 	OriginalViewOffsetDucked = Vector(0, 0, 28),
+	OriginalHull = {Vector(-16, -16, 0), Vector (16, 16, 72)},
+	OriginalHullDucked = {Vector(-16, -16, 0), Vector (16, 16, 36)},
 	StartTime = 0,
 	GetDownTime = 0,
 	EndTime = 0,
@@ -38,6 +40,8 @@ function prone.PlayerStateData:UpdateDataOnProneEnter()
 	self.PlayerSteamID = self.Player:SteamID()
 	self.OriginalViewOffset = self.Player:GetViewOffset()
 	self.OriginalViewOffsetDucked = self.Player:GetViewOffsetDucked()
+	self.OriginalHull = {self.Player:GetHull()}
+	self.OriginalHullDucked = {self.Player:GetHullDuck()}
 	self.StartTime = CurTime()
 
 	local seq = prone.Animations.gettingdown

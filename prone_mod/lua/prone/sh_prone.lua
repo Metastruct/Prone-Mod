@@ -198,12 +198,16 @@ function prone.Exit(ply)
 	if plyProneStateData then
 		ply:SetViewOffset(plyProneStateData:GetOriginalViewOffset())
 		ply:SetViewOffsetDucked(plyProneStateData:GetOriginalViewOffsetDucked())
+
+		ply:SetHull(unpack(plyProneStateData:GetOriginalHull()))
+		ply:SetHullDuck(unpack(plyProneStateData:GetOriginalHullDucked()))
 	else
 		-- Best guess in-case we somehow lose state data.
 		ply:SetViewOffset(Vector(0, 0, 64))
 		ply:SetViewOffsetDucked(Vector(0, 0, 28))
+
+		ply:ResetHull()
 	end
-	ply:ResetHull()
 
 	prone.PlayerStateDatas[ply:SteamID()] = nil
 
